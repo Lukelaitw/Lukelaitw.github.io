@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.toolbar {
+    margin-bottom: 20px;
+}
+
+canvas {
+    border: 1px solid #333;
+    background-color: #fff;
+    display: block;
+    margin: 0 auto;
+}
+
+.coordinates-section {
+    margin-top: 20px;
+    text-align: left;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+textarea {
+    width: 100%;
+    max-width: 800px;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+}
