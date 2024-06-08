@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button class="back-button" onclick="location.href='menu.html'">Back to Menu</button>
     <h1>線上畫畫</h1>
     <div class="toolbar">
         <label for="colorPicker">顏色: </label>
@@ -18,7 +19,7 @@
         <label for="uploadGcode">上傳G-code: </label>
         <input type="file" id="uploadGcode" accept=".gcode">
         <label for="uploadSVG">上傳SVG: </label>
-        <input type="file" id="runpythonscript" accept=".svg">
+        <input type="file" id="uploadSVG" accept=".svg">
     </div>
     <canvas id="drawingCanvas" width="800" height="600"></canvas>
     <div class="coordinates-section">
