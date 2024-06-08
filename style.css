@@ -39,3 +39,35 @@ textarea {
     font-size: 14px;
     resize: none;
 }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu button, .back-button, .menu a button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.menu button:hover, .back-button:hover, .menu a button:hover {
+    background-color: #0056b3;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+}
