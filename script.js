@@ -7,18 +7,57 @@ window.addEventListener('load', () => {
     const coordinates = document.getElementById('coordinates');
     const downloadGcodeButton = document.getElementById('downloadGcodeButton');
     const uploadGcode = document.getElementById('uploadGcode');
-    const svg2gcodefile = document.getElementById('runpythonscript');
-
+    document.getElementById('uploadSVG').addEventListener('change', uploadSVGFile);
+    
 
     let painting = false;
     let coordinatesList = [];
 
-    function runpythonscript() {
-        // Get the path to the Python script.
-        var pythonScriptPath = "/Users/lukelaitw/NTU/webcarcar/svg2gcode.py";
-        c = svg2gcodefile
-        subprocess.run(["python", pythonScriptPath]);
+    function uploadSVGFile() {
+        const fileInput = document.getElementById('uploadSVG');
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+    
+        reader.onload = function(event) {
+            const svgContent = event.target.result;
+            convertSVGToGCode(svgContent);
+        };
+    
+        if (file) {
+            reader.readAsText(file);
+        }
     }
+    function convertSVGToGCode(svgContent) {
+        // Send the SVG content to the backend for conversion
+        fetch('/convert-svg', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ svg: svgContent })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const gcode = data.gcode;
+            displayGCode(gcode);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+
+
+    function downloadGcode(gcode) {
+        const blob = new Blob([gcode], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'output.gcode';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+    
+
 
     function startPosition(e) {
         painting = true;
@@ -77,15 +116,35 @@ window.addEventListener('load', () => {
         return gcode.join('\n');
     }
 
-    function downloadGcode() {
-        const gcode = convertToGcode();
-        const blob = new Blob([gcode], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'drawing.gcode';
-        a.click();
-        URL.revokeObjectURL(url);
+    function displayGCode(gcode) {
+        const canvas = document.getElementById('drawingCanvas');
+        const context = canvas.getContext('2d');
+        const commands = gcode.split('\n');
+
+        let x = 0, y = 0;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        commands.forEach(command => {
+            if (command.startsWith('G1')) {
+                const parts = command.split(' ');
+                parts.forEach(part => {
+                    if (part.startsWith('X')) x = parseFloat(part.slice(1));
+                    if (part.startsWith('Y')) y = parseFloat(part.slice(1));
+                });
+                context.lineTo(x, y);
+            } else if (command.startsWith('G0')) {
+                const parts = command.split(' ');
+                parts.forEach(part => {
+                    if (part.startsWith('X')) x = parseFloat(part.slice(1));
+                    if (part.startsWith('Y')) y = parseFloat(part.slice(1));
+                });
+                context.moveTo(x, y);
+            }
+            context.stroke();
+        });
+
+        document.getElementById('coordinates').value = gcode;
     }
 
     function simulateGcode(gcode) {
