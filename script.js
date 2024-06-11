@@ -1,263 +1,214 @@
-window.addEventListener('load', () => {
-    const canvas = document.getElementById('drawingCanvas');
-    const ctx = canvas.getContext('2d');
-    const colorPicker = document.getElementById('colorPicker');
-    const lineWidth = document.getElementById('lineWidth');
-    const clearButton = document.getElementById('clearButton');
-    const coordinates = document.getElementById('coordinates');
-    const downloadGcodeButton = document.getElementById('downloadGcodeButton');
-    const uploadGcode = document.getElementById('uploadGcode');
-    document.getElementById('uploadSVG').addEventListener('change', uploadSVGFile);
-    
+const canvas = document.getElementById('drawingCanvas');
+const ctx = canvas.getContext('2d');
 
-    let painting = false;
-    let coordinatesList = [];
+let painting = false;
+let coordinates = [];
 
-    function uploadSVGFile() {
-        const fileInput = document.getElementById('uploadSVG');
-        const file = fileInput.files[0];
-        const reader = new FileReader();
-    
-        reader.onload = function(event) {
-            const svgContent = event.target.result;
-            convertSVGToGCode(svgContent);
-        };
-    
-        if (file) {
-            reader.readAsText(file);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Drawing functionality
+function startPosition(e) {
+    painting = true;
+    draw(e);
+}
+
+function endPosition() {
+    painting = false;
+    ctx.beginPath();
+    coordinates.push(null); // Mark the end of a line segment
+}
+
+function draw(e) {
+    if (!painting) return;
+    ctx.lineWidth = document.getElementById('lineWidth').value;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = document.getElementById('colorPicker').value;
+
+    const x = e.clientX - canvas.offsetLeft;
+    const y = e.clientY - canvas.offsetTop;
+
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+
+    // Record coordinates
+    coordinates.push({ x, y });
+}
+
+// G-code generation
+// G-code generation
+function generateGCode(coordinates) {
+    let gcode = "G21 F150;\n";
+    let firstMove = true;
+
+    for (let i = 0; i < coordinates.length; i++) {
+        const point = coordinates[i];
+
+        if (point) {
+            const command = firstMove ? 'G0' : 'G1';
+            gcode += `${command} X${(point.x / 5).toFixed(2)} Y${(-point.y / 5).toFixed(2)}\n`;
+            firstMove = false;
+        } else {
+            if (i < coordinates.length - 1 && coordinates[i + 1]) {
+                // Insert M3 and G0 commands before moving to the next segment
+                gcode += "M3\n";
+                gcode += `G0 X${(coordinates[i + 1].x /5).toFixed(2)} Y${-(coordinates[i + 1].y /5).toFixed(2)}\n`;
+                gcode += "M5\n";
+            }
+            firstMove = true;
         }
     }
-    function convertSVGToGCode(svgContent) {
-        // Send the SVG content to the backend for conversion
-        fetch('/convert-svg', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ svg: svgContent })
-        })
-        .then(response => response.json())
-        .then(data => {
-            const gcode = data.gcode;
-            displayGCode(gcode);
-        })
-        .catch(error => console.error('Error:', error));
-    }
+
+    gcode += "M30 ; Program end\n";
+    return gcode;
+}
 
 
-
-    function downloadGcode(gcode) {
-        const blob = new Blob([gcode], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'output.gcode';
-        document.body.appendChild(a);
-        a.click();
+// Download G-code
+function downloadGCode(gcode) {
+    const blob = new Blob([gcode], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'drawing.gcode';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
         document.body.removeChild(a);
-    }
-    
+        window.URL.revokeObjectURL(url);
+    }, 0);
+}
 
+// Clear canvas
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    coordinates = []; // Clear coordinates
+}
 
-    function startPosition(e) {
-        painting = true;
-        draw(e);
-    }
+// Display G-code
+function displayGCode(gcode) {
+    document.getElementById('gcodeOutput').textContent = gcode;
+}
 
-    function endPosition() {
-        painting = false;
-        ctx.beginPath();
-        coordinatesList.push('End of Path');
-        updateCoordinatesDisplay();
-    }
+// Simulate G-code
+function simulateGcode(gcode) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    function draw(e) {
-        if (!painting) return;
+    let currentX = 0;
+    let currentY = 0;
+    let units = 'mm';  // Default units
 
-        ctx.lineWidth = lineWidth.value;
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = colorPicker.value;
-
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX || e.touches[0].clientX) - rect.left;
-        const y = (e.clientY || e.touches[0].clientY) - rect.top;
-
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-
-        coordinatesList.push(`(${x}, ${y})`);
-    }
-
-    function updateCoordinatesDisplay() {
-        coordinates.value = coordinatesList.join('\n');
-    }
-
-    function convertToGcode() {
-        let gcode = [];
-        let isDrawing = false;
-
-        for (let coordinate of coordinatesList) {
-            if (coordinate === 'End of Path') {
-                isDrawing = false;
-            } else {
-                const [x, y] = coordinate.replace(/[()]/g, '').split(',').map(Number);
-                if (!isDrawing) {
-                    gcode.push(`G0 X${x} Y${y}`);
-                    isDrawing = true;
-                } else {
-                    gcode.push(`G1 X${x} Y${y}`);
-                }
-            }
+    ctx.beginPath();
+    for (let line of gcode) {
+        if (line.startsWith('M2')) {
+            break; // End of program, stop processing further commands
+        }
+        if (line.startsWith('G20')) {
+            units = 'inches';  // Set units to inches
+            continue;
+        }
+        if (line.startsWith('G21')) {
+            units = 'mm';  // Set units to millimeters
+            continue;
         }
 
-        gcode.push('M30'); // 程序結束
-        return gcode.join('\n');
-    }
+        const parts = line.split(' ');
 
-    function displayGCode(gcode) {
-        const canvas = document.getElementById('drawingCanvas');
-        const context = canvas.getContext('2d');
-        const commands = gcode.split('\n');
-
-        let x = 0, y = 0;
-
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
-        commands.forEach(command => {
-            if (command.startsWith('G1')) {
-                const parts = command.split(' ');
-                parts.forEach(part => {
-                    if (part.startsWith('X')) x = parseFloat(part.slice(1));
-                    if (part.startsWith('Y')) y = parseFloat(part.slice(1));
-                });
-                context.lineTo(x, y);
-            } else if (command.startsWith('G0')) {
-                const parts = command.split(' ');
-                parts.forEach(part => {
-                    if (part.startsWith('X')) x = parseFloat(part.slice(1));
-                    if (part.startsWith('Y')) y = parseFloat(part.slice(1));
-                });
-                context.moveTo(x, y);
-            }
-            context.stroke();
-        });
-
-        document.getElementById('coordinates').value = gcode;
-    }
-
-    function simulateGcode(gcode) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-        let currentX = 0;
-        let currentY = 0;
-        let units = 'mm';  // Default units
-    
-        ctx.beginPath();
-        for (let line of gcode) {
-            if (line.startsWith('M2')) {
-                break; // End of program, stop processing further commands
-            }
-            if (line.startsWith('G20')) {
-                units = 'inches';  // Set units to inches
-                continue;
-            }
-            if (line.startsWith('G21')) {
-                units = 'mm';  // Set units to millimeters
-                continue;
-            }
-    
-            const parts = line.split(' ');
-    
-            if (line.startsWith('G0') || line.startsWith('G1')) {
-                const xPart = parts.find(part => part.startsWith('X'));
-                const yPart = parts.find(part => part.startsWith('Y'));
-                const x = xPart ? parseFloat(xPart.substring(1)) : currentX;
-                const y = yPart ? parseFloat(yPart.substring(1)) : currentY;
-                const centery = 270;
-                const centerx = 450;
-                
-                if (line.startsWith('G0')) {
-                    ctx.moveTo(x, y);
-                } else if (line.startsWith('G1')) {
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
-                }
-    
-                currentX = x;
-                currentY = y;
-            } else if (line.startsWith('G2') || line.startsWith('G3')) {
-                const xPart = parts.find(part => part.startsWith('X'));
-                const yPart = parts.find(part => part.startsWith('Y'));
-                const iPart = parts.find(part => part.startsWith('I'));
-                const jPart = parts.find(part => part.startsWith('J'));
-    
-                const x = xPart ? parseFloat(xPart.substring(1)) : currentX;
-                const y = yPart ? parseFloat(yPart.substring(1)) : currentY;
-                const i = iPart ? parseFloat(iPart.substring(1)) : 0;
-                const j = jPart ? parseFloat(jPart.substring(1)) : 0;
-    
-                const centerX = currentX + i;
-                const centerY = currentY + j;
-                const radius = Math.sqrt(i * i + j * j);
-
-                const startAngle = Math.atan2(currentY - centerY, currentX - centerX);
-                const endAngle = Math.atan2(y - centerY, x - centerX);
-
-                if (line.startsWith('G2')) {
-                    // Clockwise arc
-                    ctx.arc(centerX, centerY, radius, startAngle, endAngle, false);
-                } else if (line.startsWith('G3')) {
-                    // Counter-clockwise arc
-                    ctx.arc(centerX, centerY, radius, startAngle, endAngle, true);
-                }
-
+        if (line.startsWith('G0') || line.startsWith('G1')) {
+            const xPart = parts.find(part => part.startsWith('X'));
+            const yPart = parts.find(part => part.startsWith('Y'));
+            const x = xPart ? parseFloat(xPart.substring(1)) : currentX;
+            const y = yPart ? parseFloat(yPart.substring(1)) : currentY;
+            const centery = 270;
+            const centerx = 450;
+            
+            if (line.startsWith('G0')) {
+                ctx.moveTo(x, -y);
+            } else if (line.startsWith('G1')) {
+                ctx.lineTo(x, -y);
                 ctx.stroke();
-    
-                currentX = x;
-                currentY = y;
             }
-        }
-        ctx.closePath();
-    }
-    
-    function handleFileUpload(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const gcode = e.target.result.split('\n');
-                simulateGcode(gcode);
+
+            currentX = x;
+            currentY = -y;
+        } else if (line.startsWith('G2') || line.startsWith('G3')) {
+            const xPart = parts.find(part => part.startsWith('X'));
+            const yPart = parts.find(part => part.startsWith('Y'));
+            const iPart = parts.find(part => part.startsWith('I'));
+            const jPart = parts.find(part => part.startsWith('J'));
+
+            const x = xPart ? parseFloat(xPart.substring(1)) : currentX;
+            const y = yPart ? parseFloat(yPart.substring(1)) : currentY;
+            const i = iPart ? parseFloat(iPart.substring(1)) : 0;
+            const j = jPart ? parseFloat(jPart.substring(1)) : 0;
+
+            const centerX = currentX + i;
+            const centerY = currentY + j;
+            const radius = Math.sqrt(i * i + j * j);
+            const startAngle = Math.atan2(currentY - centerY, currentX - centerX);
+            const endAngle = Math.atan2(y - centerY, x - centerX);
+
+            if (line.startsWith('G2')) {
+                // Clockwise arc
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle, false);
+            } else if (line.startsWith('G3')) {
+                // Counter-clockwise arc
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle, true);
             }
-            reader.readAsText(file);
+
+            ctx.stroke();
+
+            currentX = x;
+            currentY = -y;
         }
     }
+    ctx.closePath();
+}
 
-    canvas.addEventListener('mousedown', startPosition);
-    canvas.addEventListener('mouseup', endPosition);
-    canvas.addEventListener('mousemove', draw);
-
-    canvas.addEventListener('touchstart', startPosition);
-    canvas.addEventListener('touchend', endPosition);
-    canvas.addEventListener('touchmove', draw);
-
-    clearButton.addEventListener('click', () => {
-        if (confirm('確定要清除畫布嗎？這將清除所有繪畫和座標記錄。')) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            coordinatesList = [];
-            updateCoordinatesDisplay();
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const gcode = e.target.result.split('\n');
+            simulateGcode(gcode);
         }
-    });
-    downloadGcodeButton.addEventListener('click', downloadGcode);
-    uploadGcode.addEventListener('change', handleFileUpload);
-    // Simulate the provided G03 command
-    // const sampleGcode = [
-    //    'G21',  // Set units to millimeters
-    //    'G0 X0 Y0',  // Move to start position
-    //    'G03 X25.285601 Y44.235978 I22.448841 J-26.067640',  // Simulate this arc
-    //    'M2'  // End of program
-    //];
+        reader.readAsText(file);
+    }
+}
 
-    //simulateGcode(sampleGcode);
+
+
+canvas.addEventListener('mousedown', startPosition);
+canvas.addEventListener('mouseup', endPosition);
+canvas.addEventListener('mousemove', draw);
+
+canvas.addEventListener('touchstart', startPosition);
+canvas.addEventListener('touchend', endPosition);
+canvas.addEventListener('touchmove', draw);
+
+document.getElementById('clearButton').addEventListener('click', () => {
+    if (confirm('確定要清除畫布嗎？這將清除所有繪畫和座標記錄。')) {
+        clearCanvas();
+    }
 });
+document.getElementById('downloadGcodeButton').addEventListener('click', () => {
+    const gcode = generateGCode(coordinates);
+    downloadGCode(gcode);
+});
+document.getElementById('uploadGcode').addEventListener('change', handleFileUpload);

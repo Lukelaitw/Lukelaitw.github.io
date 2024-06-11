@@ -1,0 +1,82 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>SVG to GCODE converter (this one should work properly)</title>
+</head>
+<body>
+    <button class="back-button" onclick="location.href='menu.html'">Back to Menu</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>SVG to GCODE converter</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <form id="frm">
+                    <div class="form-group" style="display: none;">
+                        <textarea class="form-control" name="svg" id="svgText" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="svgFile">Upload SVG File</label>
+                        <input type="file" class="form-control" id="svgFile" accept=".svg" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" style="display:none;"placeholder="Segment length" name="segmentLength" value="1" />
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="convert()">Convert to GCode</button>
+                    </div>
+                    <div id="svg-container" style="display:block;"></div>
+                </form>
+            </div>
+            <div class="col-sm">
+                <div class="form-group" style="display: none;">
+                    <textarea rows="10" placeholder="Your G-Code will show up here" id="txt-gcode" class="form-control"></textarea>
+                </div>
+                <div>
+                    <canvas width="500px" height="500px" id="cnv"></canvas>
+                </div>
+                <div class="form-group">
+                    <button id="downloadBtn" class="btn btn-secondary"  onclick="downloadGCode()">Download GCode</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="snap.svg/snap.svg-min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+        document.getElementById('svgFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('svgText').value = event.target.result;
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function convert1() {
+            const svgText = document.getElementById('svgText').value;
+            const gcode = convert(svgText);
+            document.getElementById('txt-gcode').value = gcode;
+            document.getElementById('downloadBtn').style.display = 'block';
+        }
+
+        function downloadGCode() {
+            const gcode = document.getElementById('txt-gcode').value;
+            const blob = new Blob([gcode], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'output.gcode';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
