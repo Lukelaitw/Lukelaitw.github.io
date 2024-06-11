@@ -9,7 +9,7 @@ var PEN_DOWN = "M3";
 var PEN_DELAY = 0.0;
 function header() {
     var lines = [
-        "G21 (set units to millimeters)",
+        "G21 F1500",
         penUp()
     ]
     return lines.join("\n");
