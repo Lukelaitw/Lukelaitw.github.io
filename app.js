@@ -169,7 +169,7 @@ function process(svg, segmentLength) {
             allGCode.push(penUp());
 
         //rapid move:
-        allGCode.push(`G0 X${path[0].x/2} Y${-path[0].y/2}`);
+        allGCode.push(`G0 X${path[0].x/5} Y${-path[0].y/5}`);
 
         if(mustPenUpDown)
             allGCode.push(penDown());
@@ -270,7 +270,7 @@ function pointsToGCode(points) {
         }
         else {*/
             //other points : normal move
-            output.push(`G1 X${pt.x/2} Y${-pt.y/2}`);
+            output.push(`G1 X${pt.x/5} Y${-pt.y/5}`);
         //}
     }
     //output.push(penUp());
@@ -317,12 +317,12 @@ function drawPoints(ctx, points) {
 
     ctx.beginPath();
     //ctx.lineWidth = 1;
-    ctx.moveTo(points[0].x/2, points[0].y/2);
+    ctx.moveTo(points[0].x/5, points[0].y/5);
 
     for (var i = 1; i < points.length; i++) {
         var p = points[i];
 
-        ctx.lineTo(p.x/2, (p.y/2));
+        ctx.lineTo(p.x/5, (p.y/5));
         ctx.stroke();
     }
 }
