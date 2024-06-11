@@ -5,7 +5,7 @@
 
 //LASER
 var PEN_UP = "M5";
-var PEN_DOWN = "M3 S40";
+var PEN_DOWN = "M3";
 var PEN_DELAY = 0.0;
 function header() {
     var lines = [
@@ -322,7 +322,7 @@ function drawPoints(ctx, points) {
     for (var i = 1; i < points.length; i++) {
         var p = points[i];
 
-        ctx.lineTo(p.x, (p.y));
+        ctx.lineTo(p.x/2, (p.y/2));
         ctx.stroke();
     }
 }
