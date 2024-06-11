@@ -53,7 +53,7 @@ function draw(e) {
 // G-code generation
 // G-code generation
 function generateGCode(coordinates) {
-    let gcode = "M5 \n G21 F1500\n";
+    let gcode = "G21 F1500\n";
     let firstMove = true;
 
     for (let i = 0; i < coordinates.length; i++) {
@@ -61,20 +61,20 @@ function generateGCode(coordinates) {
 
         if (point) {
             const command = firstMove ? ['G0','M3 S40'] : ['G1',''];
-            gcode += `${command[0]} X${(point.x / 5).toFixed(2)} Y${(-point.y / 5).toFixed(2)}\n${command[1]}`;
+            gcode += `${command[0]} X${(point.x / 5).toFixed(2)} Y${(-point.y / 5).toFixed(2)}\n${command[1]}\n`;
             firstMove = false;
         } else {
             if (i < coordinates.length - 1 && coordinates[i + 1]) {
                 // Insert M3 and G0 commands before moving to the next segment
                 gcode += "M5\n";
                 gcode += `G0 X${(coordinates[i + 1].x /5).toFixed(2)} Y${-(coordinates[i + 1].y /5).toFixed(2)}\n`;
-                gcode += "M3 S20\n";
+                gcode += "M3\n";
             }
             firstMove = true;
         }
     }
 
-    gcode += "M50 ; Program end\n";
+    gcode += "M5 ; Program end\n M30";
     return gcode;
 }
 
