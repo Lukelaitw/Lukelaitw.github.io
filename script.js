@@ -53,7 +53,7 @@ function draw(e) {
 // G-code generation
 // G-code generation
 function generateGCode(coordinates) {
-    let gcode = "M5 \n G21 F5100\n";
+    let gcode = "M5 \n G21 F1500\n";
     let firstMove = true;
 
     for (let i = 0; i < coordinates.length; i++) {
