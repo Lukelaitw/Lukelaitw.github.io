@@ -4,22 +4,6 @@ const ctx = canvas.getContext('2d');
 let painting = false;
 let coordinates = [];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Drawing functionality
 function startPosition(e) {
     painting = true;
@@ -61,7 +45,7 @@ function generateGCode(coordinates) {
 
         if (point) {
             const command = firstMove ? ['G0','M3 S40'] : ['G1',''];
-            gcode += `${command[0]} X${(point.x / 5).toFixed(2)} Y${(-point.y / 5).toFixed(2)}\n${command[1]}\n`;
+            gcode += `${command[0]} X${(-20+point.x/5).toFixed(2)} Y${(-point.y / 5).toFixed(2)}\n${command[1]}\n`;
             firstMove = false;
         } else {
             if (i < coordinates.length - 1 && coordinates[i + 1]) {
