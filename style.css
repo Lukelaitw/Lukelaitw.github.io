@@ -1,14 +1,26 @@
 /* style.css */
-body {
+body 
+{
     font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f0f0;
+    text-align: center;   
     margin: 0;
     padding: 20px;
+    background-color: rgba(0,0,0,0.65);
+    background-image: url(background_image.jpg);
+    background-size:cover;
+    background-blend-mode: multiply;
 }
 
-h1 {
-    color: #333;
+input[type='file']
+{
+    color: white;
+    font-weight: bold;
+}
+
+h1, .white
+{
+    color: white;
+    font-weight: bold;
 }
 
 .toolbar {
@@ -17,7 +29,7 @@ h1 {
 
 canvas {
     border: 1px solid #333;
-    background-color: #fff;
+    background-color: white;
     display: block;
     margin: 0 auto;
 }
@@ -54,13 +66,13 @@ textarea {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #007BFF;
+    background-color: blue;
     color: white;
     transition: background-color 0.3s ease;
 }
 
 .menu button:hover, .back-button:hover, .menu a button:hover {
-    background-color: #0056b3;
+    background-color: white;
 }
 
 .back-button {

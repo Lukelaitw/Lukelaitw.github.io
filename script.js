@@ -187,7 +187,7 @@ canvas.addEventListener('touchend', endPosition);
 canvas.addEventListener('touchmove', draw);
 
 document.getElementById('clearButton').addEventListener('click', () => {
-    if (confirm('確定要清除畫布嗎？這將清除所有繪畫和座標記錄。')) {
+    if (confirm('確定要清除畫布嗎？這樣將會清除所有繪畫記錄!')) {
         clearCanvas();
     }
 });

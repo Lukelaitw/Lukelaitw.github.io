@@ -19,16 +19,17 @@
                         <textarea class="form-control" name="svg" id="svgText" rows="10"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="svgFile">Upload SVG File</label>
-                        <input type="file" class="form-control" id="svgFile" accept=".svg" />
+                        <label for="svgFile"></label>
+                        <input type="file" class="form-control" id="svgFile" accept=".svg">
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" style="display:none;"placeholder="Segment length" name="segmentLength" value="1" />
-                    </div>
+                    <p></p>
                     <div class="form-group">
                         <button type="button" class="btn btn-primary" onclick="convert()">Convert to GCode</button>
                     </div>
                     <div id="svg-container" style="display:block;"></div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" style="display:none;"placeholder="Segment length" name="segmentLength" value="1" />
+                    </div>
                 </form>
             </div>
             <div class="col-sm">
@@ -38,6 +39,7 @@
                 <div>
                     <canvas width="500px" height="500px" id="cnv"></canvas>
                 </div>
+                <p></p>
                 <div class="form-group">
                     <button id="downloadBtn" class="btn btn-secondary"  onclick="downloadGCode()">Download GCode</button>
                 </div>

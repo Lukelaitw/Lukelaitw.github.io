@@ -10,20 +10,20 @@
     <button class="back-button" onclick="location.href='menu.html'">Back to Menu</button>
     <h1>線上畫畫</h1>
     <div class="toolbar">
-        <label for="colorPicker">顏色: </label>
-        <input type="color" id="colorPicker">
-        <label for="lineWidth">線條寬度: </label>
-        <input type="range" id="lineWidth" min="1" max="10" value="1">
-        <button id="clearButton">清除畫布</button>
-        <button id="downloadGcodeButton">下載G-code</button>
-        <label for="uploadGcode">上傳G-code: </label>
-        <input type="file" id="uploadGcode" accept=".gcode">
+        <label for="uploadGcode" class="white"></label>
+        <button id="downloadGcodeButton">下載G-code</button>&nbsp;&nbsp;&nbsp;
+        <button id="clearButton">清除畫布</button>&nbsp;&nbsp;&nbsp;
     </div>
     <canvas id="drawingCanvas" width="800" height="600"></canvas>
-    <div class="coordinates-section" style="display:none;"">
+    <div class="coordinates-section" style="display:none;">
         <h2>座標記錄</h2>
         <textarea id="coordinates" rows="10" cols="50" readonly></textarea>
     </div>
+    <label for="colorPicker"></label>
+    <input type="hidden" id="colorPicker">
+    <label for="lineWidth"></label>
+    <input type="hidden" id="lineWidth" min="1" max="10" value="1" display="none">
+    <input type="hidden" id="uploadGcode" accept=".gcode">
     <script src="script.js"></script>
 </body>
 </html>
