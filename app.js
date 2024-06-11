@@ -5,7 +5,7 @@
 
 //LASER
 var PEN_UP = "M5";
-var PEN_DOWN = "M3";
+var PEN_DOWN = "M3 S40";
 var PEN_DELAY = 0.0;
 function header() {
     var lines = [
@@ -169,7 +169,7 @@ function process(svg, segmentLength) {
             allGCode.push(penUp());
 
         //rapid move:
-        allGCode.push(`G0 X${path[0].x/5} Y${-path[0].y/5}`);
+        allGCode.push(`G0 X${-20+path[0].x/5} Y${-path[0].y/5}`);
 
         if(mustPenUpDown)
             allGCode.push(penDown());
@@ -317,12 +317,12 @@ function drawPoints(ctx, points) {
 
     ctx.beginPath();
     //ctx.lineWidth = 1;
-    ctx.moveTo(points[0].x/5, points[0].y/5);
+    ctx.moveTo(-20+points[0].x/5, points[0].y/5);
 
     for (var i = 1; i < points.length; i++) {
         var p = points[i];
 
-        ctx.lineTo(p.x/5, (p.y/5));
+        ctx.lineTo(-20+p.x/5, (p.y/5));
         ctx.stroke();
     }
 }
