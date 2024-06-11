@@ -270,7 +270,7 @@ function pointsToGCode(points) {
         }
         else {*/
             //other points : normal move
-            output.push(`G1 X${pt.x}/2 Y${-pt.y}/2`);
+            output.push(`G1 X${pt.x/2} Y${-pt.y/2}`);
         //}
     }
     //output.push(penUp());
