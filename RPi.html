@@ -17,7 +17,7 @@
             const button = document.getElementById('takePhoto');
             button.disabled = true; // 禁用按鈕
 
-            fetch('http://localhost:8080/take-photo')
+            fetch('http://localhost:9000/take-photo')
                 .then(response => response.blob())
                 .then(blob => {
                     const url = URL.createObjectURL(blob);
