@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Photo with Pi Camera</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="back-button" onclick="location.href='menu.html'">Back to Menu</button>
+    <h1>Take Photo with Raspberry Pi</h1><br>
+    <button id="takePhoto">Take Photo</button>
+    <img id="photo" src="" alt="No photo taken yet" style="display:none; margin-top:20px;">
+
+    <script>
+        document.getElementById('takePhoto').addEventListener('click', function() {
+            const button = document.getElementById('takePhoto');
+            button.disabled = true; // 禁用按鈕
+
+            fetch('http://localhost:8080/take-photo')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const img = document.getElementById('photo');
+                    img.src = url;
+                    img.style.display = 'block';
+                    button.disabled = false; // 操作完成後啟用按鈕
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    button.disabled = false; // 出現錯誤後也啟用按鈕
+                });
+        });
+    </script>
+</body>
+</html>
