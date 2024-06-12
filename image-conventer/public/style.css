@@ -1,0 +1,86 @@
+/* style.css */
+body 
+{
+    font-family: Arial, sans-serif;
+    text-align: center;   
+    margin: 0;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.65);
+    background-image: url(background_image.jpg);
+    background-size:cover;
+    background-blend-mode: multiply;
+}
+
+input[type='file']
+{
+    color: white;
+    font-weight: bold;
+}
+
+h1, h2
+{
+    color: white;
+    font-weight: bold;
+}
+
+.toolbar {
+    margin-bottom: 20px;
+}
+
+canvas {
+    border: 1px solid #333;
+    background-color: white;
+    display: block;
+    margin: 0 auto;
+}
+
+.coordinates-section {
+    margin-top: 20px;
+    text-align: left;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+textarea {
+    width: 100%;
+    max-width: 800px;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu button, .back-button, .menu a button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.menu button:hover, .back-button:hover, .menu a button:hover {
+    background-color: white;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+}
