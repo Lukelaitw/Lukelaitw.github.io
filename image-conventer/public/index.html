@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG to SVG Converter</title>
+</head>
+<body>
+    <h1>Convert JPG to SVG</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/jpeg">
+        <button type="submit">Upload and Convert</button>
+    </form>
+    <div id="result">
+        <h2>SVG Output</h2>
+        <div id="svgContainer"></div>
+        <a id="downloadLink" style="display: none;" download="converted.svg">Download SVG</a>
+    </div>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            });
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const svgContainer = document.getElementById('svgContainer');
+                svgContainer.innerHTML = `<img src="${url}" alt="SVG Image" />`;
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = url;
+                downloadLink.style.display = 'block';
+            } else {
+                alert('Failed to convert image.');
+            }
+        });
+    </script>
+</body>
+</html>
