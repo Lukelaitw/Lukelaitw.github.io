@@ -14,7 +14,9 @@ https://lukelaitw.github.io/menu.html
 ## Demo
 
 
-Uploading redpandacompress_IMG_1859.mp4…
+https://github.com/user-attachments/assets/8813ac76-751c-4c84-8a64-55eae41ac003
+
+
 
 ### 注意事項
 1. 要使用UGS請先將Universal Gcode Sender 打開
