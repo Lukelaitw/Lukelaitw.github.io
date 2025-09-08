@@ -1,4 +1,4 @@
-# 車車課期末專題展示網站 Carcar Class Final Project Demo web
+# 車車課期末專題展示網站 Carcar Class Final Project Demo Web
 https://lukelaitw.github.io/carcarclass.github.io/menu.html
 
 ## Guide 
