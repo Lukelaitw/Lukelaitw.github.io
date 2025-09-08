@@ -1,5 +1,5 @@
 # 車車課期末專題展示網站 Carcar Class Final Project Demo web
-https://lukelaitw.github.io/menu.html
+https://lukelaitw.github.io/carcarclass.github.io/menu.html
 
 ## Guide 
 1. UGS command page 
