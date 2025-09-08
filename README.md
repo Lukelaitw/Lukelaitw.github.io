@@ -1,12 +1,12 @@
-# 車車課期末專題Demo web
+# 車車課期末專題展示網站 Carcar Class Final Project Demo web
 https://lukelaitw.github.io/menu.html
-1. 畫畫
+1. 畫畫 draw
 
 2. jpg to svg
 
 3. svg to gcode
 
-## 寫字機
+## 寫字機 writing machine
 
 ![436308024_470451992156095_6047661426740767826_n](https://github.com/user-attachments/assets/bd57a0fe-44fc-4409-818c-a8ace2b6be85)
 
