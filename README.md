@@ -1,10 +1,17 @@
 # 車車課期末專題展示網站 Carcar Class Final Project Demo web
 https://lukelaitw.github.io/menu.html
-1. 畫畫 draw
 
-2. jpg to svg
+## Guide 
+1. UGS command page 
 
-3. svg to gcode
+2. 畫畫 canvas for draw
+
+4. converter jpg to svg
+
+5. converter svg to gcode
+
+6. taking picture by pi camera
+   
 
 ## 寫字機 writing machine
 
