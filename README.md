@@ -11,11 +11,14 @@ https://lukelaitw.github.io/menu.html
 5. converter svg to gcode
 
 6. taking picture by pi camera
-   
 
 ## 寫字機 writing machine
 
 ![436308024_470451992156095_6047661426740767826_n](https://github.com/user-attachments/assets/bd57a0fe-44fc-4409-818c-a8ace2b6be85)
+
+## poster
+
+![IMG_1934](https://github.com/user-attachments/assets/5d665334-bc65-4423-be28-52b92bdf8409)
 
 
 ## Demo
@@ -27,4 +30,9 @@ https://github.com/user-attachments/assets/8813ac76-751c-4c84-8a64-55eae41ac003
 
 ### 注意事項
 1. 要使用UGS請先將Universal Gcode Sender 打開
-2. 要使用jpg to svg 請利用terminal 執行 imageconverter 內的server 
+2. 要使用jpg to svg 請利用terminal 執行 imageconverter 內的server
+
+
+## 最佳人氣獎 Popularity Award
+
+![7DCBADE8-FEC3-4875-B001-0FE3B8A906C4](https://github.com/user-attachments/assets/cecec57e-016c-401c-8c59-ca6e4a2b24ce)
