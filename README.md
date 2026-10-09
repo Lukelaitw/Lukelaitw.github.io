@@ -42,7 +42,7 @@ The site serves `public/cv/Yu-Heng_Lai_CV.pdf`, a web copy of the research resum
 
 1. Apply the same change to `resume_research_web.tex`, which sits next to the original `.tex` outside this repository, keeping unpublished project names out.
 2. Compile it with `pdflatex resume_research_web.tex`.
-3. Check that the PDF is one page and contains no unpublished names: `pdfinfo resume_research_web.pdf | grep Pages` should report 1 page, and both `pdftotext resume_research_web.pdf - | grep -ci "<name>"` and `pdfinfo resume_research_web.pdf | grep -ci "<name>"` should print `0`.
+3. Check that the PDF is one page and contains no unpublished names: `pdfinfo resume_research_web.pdf | grep Pages` should report 1 page, and each of `pdftotext resume_research_web.pdf - | grep -ci "<name>"`, `pdfinfo resume_research_web.pdf | grep -ci "<name>"`, and `pdfinfo -url resume_research_web.pdf | grep -ci "<name>"` (link targets) should print `0`.
 4. Copy the PDF to `public/cv/Yu-Heng_Lai_CV.pdf` and push.
 
 ## Deployment
