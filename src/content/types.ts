@@ -50,4 +50,6 @@ export type EducationItem = {
   details?: string[];
 };
 
+  // School emblem or logo in public/images/schools/, shown beside the entry.
+  logo?: string;
 export type SkillGroup = { label: string; items: string[] };
