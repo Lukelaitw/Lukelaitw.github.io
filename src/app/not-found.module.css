@@ -1,0 +1,11 @@
+.page {
+  padding: 64px 0;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+}
