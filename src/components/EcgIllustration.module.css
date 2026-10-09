@@ -24,5 +24,4 @@
   fill: var(--ecg-line);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 9px;
-  opacity: 0.85;
 }
