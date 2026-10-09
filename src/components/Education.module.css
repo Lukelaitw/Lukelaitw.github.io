@@ -1,0 +1,13 @@
+.item {
+  margin-bottom: 16px;
+}
+
+.degree {
+  margin: 0;
+}
+
+.detail {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}

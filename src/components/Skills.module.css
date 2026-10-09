@@ -1,0 +1,26 @@
+.list {
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.items {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 10px;
+  }
+}
