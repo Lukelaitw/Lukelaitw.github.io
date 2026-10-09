@@ -85,6 +85,7 @@ export const projects: Project[] = [
       "A web app that converts sketches and Raspberry Pi camera photos into G-code through a custom JPG → SVG → G-code pipeline, then drives a pen plotter via Universal G-code Sender.",
     tags: ["Python", "JavaScript", "Raspberry Pi"],
     links: [
+      { label: "Web App", href: "https://lukelaitw.github.io/carcarclass.github.io/" },
       { label: "Demo Video", href: "https://youtu.be/VoTIUAAcsV8" },
       { label: "Code", href: "https://github.com/Lukelaitw/carcarclass.github.io" },
     ],
