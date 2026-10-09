@@ -1,0 +1,13 @@
+.item {
+  margin-bottom: 22px;
+}
+
+.advisor {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.description {
+  margin: 0;
+}

@@ -6,7 +6,7 @@ import { extname, join } from "node:path";
 
 const OUT_DIR = "out";
 // Ids of the <section> elements the page must contain.
-const REQUIRED_SECTIONS = ["news"];
+const REQUIRED_SECTIONS = ["news", "research"];
 const TEXT_EXTENSIONS = new Set([".html", ".txt", ".js", ".css", ".json", ".svg", ".xml"]);
 
 const indexPath = join(OUT_DIR, "index.html");
