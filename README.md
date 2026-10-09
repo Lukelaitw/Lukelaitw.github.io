@@ -34,7 +34,7 @@ To add an entry, copy an existing object in the relevant file and edit it:
 - **Publication:** add an object to `publications.ts` following the commented example. Write your name exactly as `Yu-Heng Lai` in `authors` so it is shown in bold.
 - **Project:** add an object to `projects.ts`. Image thumbnails need a non-empty `alt`.
 
-Run `npm run build && npm run check` before pushing. To make sure an unpublished name never ships, run `FORBIDDEN_TERMS="<name>" npm run check`; the check fails if the name appears anywhere in `out/`.
+Run `npm run build && npm run check` before pushing. To guard against an unpublished name, run `FORBIDDEN_TERMS="<name>" npm run check`; the check fails if the name (case-insensitive) appears in any text file in `out/` (.html, .txt, .js, .css, .json, .svg, .xml). It does not read the CV PDF, so check that as described under Updating the CV.
 
 ## Updating the CV
 
@@ -42,7 +42,7 @@ The site serves `public/cv/Yu-Heng_Lai_CV.pdf`, a web copy of the research resum
 
 1. Apply the same change to `resume_research_web.tex`, which sits next to the original `.tex` outside this repository, keeping unpublished project names out.
 2. Compile it with `pdflatex resume_research_web.tex`.
-3. Check that the PDF is one page and contains no unpublished names: `pdfinfo resume_research_web.pdf | grep Pages` should report 1 page, and `pdftotext resume_research_web.pdf - | grep -ci "<name>"` should print `0`.
+3. Check that the PDF is one page and contains no unpublished names: `pdfinfo resume_research_web.pdf | grep Pages` should report 1 page, and both `pdftotext resume_research_web.pdf - | grep -ci "<name>"` and `pdfinfo resume_research_web.pdf | grep -ci "<name>"` should print `0`.
 4. Copy the PDF to `public/cv/Yu-Heng_Lai_CV.pdf` and push.
 
 ## Deployment
