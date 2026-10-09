@@ -1,0 +1,28 @@
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.paper {
+  fill: var(--ecg-paper);
+}
+
+.grid {
+  stroke: var(--ecg-grid);
+  stroke-width: 0.6;
+}
+
+.trace {
+  fill: none;
+  stroke: var(--ecg-line);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.label {
+  fill: var(--ecg-line);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 9px;
+  opacity: 0.85;
+}
