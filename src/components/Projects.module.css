@@ -39,6 +39,10 @@
   font-weight: 600;
 }
 
+.period {
+  white-space: nowrap;
+}
+
 .description {
   margin: 0 0 6px;
 }

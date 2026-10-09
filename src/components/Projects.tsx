@@ -28,11 +28,13 @@ export function Projects({ items }: { items: Project[] }) {
             <p className={styles.meta}>
               {project.award && (
                 <>
-                  <span className={styles.award}>{project.award}</span>
-                  {" · "}
+                  <span className={styles.award}>{project.award}</span>{" "}
                 </>
               )}
-              {project.period}
+              <span className={styles.period}>
+                {project.award && "· "}
+                {project.period}
+              </span>
             </p>
             <p className={styles.description}>{project.description}</p>
             <p className={styles.tags}>{project.tags.join(" · ")}</p>
