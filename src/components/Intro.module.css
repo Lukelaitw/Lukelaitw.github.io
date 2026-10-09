@@ -1,0 +1,30 @@
+.intro {
+  padding-top: 12px;
+}
+
+.name {
+  margin: 0 0 16px;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.bio p {
+  margin: 0 0 12px;
+}
+
+.links {
+  margin: 4px 0 0;
+}
+
+.separator {
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .name {
+    font-size: 32px;
+  }
+}
