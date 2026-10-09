@@ -17,7 +17,7 @@ npm run preview   # serve out/ at http://localhost:3000 (needs python3)
 
 ## Editing content
 
-Page content lives in `src/content/`, and components in `src/components/` handle layout. A few fixed strings live elsewhere: section headings in `src/components/`, nav labels in `src/app/page.tsx`, and the page title and search/social description in `src/app/layout.tsx`. Update that description when the bio in `profile.tsx` changes.
+Page content lives in `src/content/`, and components in `src/components/` handle layout. A few fixed strings live elsewhere: section headings and small labels (such as "Advisor:" and the footer text) in `src/components/`, nav labels in `src/app/page.tsx`, and the page title and search/social description in `src/app/layout.tsx`. Update that description when the bio in `profile.tsx` changes.
 
 | File | Content |
 | --- | --- |
@@ -42,7 +42,7 @@ The site serves `public/cv/Yu-Heng_Lai_CV.pdf`, a web copy of the research resum
 
 1. Apply the same change to `resume_research_web.tex`, which sits next to the original `.tex` outside this repository, keeping unpublished project names out.
 2. Compile it with `pdflatex resume_research_web.tex`.
-3. Check that the PDF is one page and contains no unpublished names: `pdfinfo resume_research_web.pdf | grep Pages` should print `Pages: 1`, and `pdftotext resume_research_web.pdf - | grep -ci "<name>"` should print `0`.
+3. Check that the PDF is one page and contains no unpublished names: `pdfinfo resume_research_web.pdf | grep Pages` should report 1 page, and `pdftotext resume_research_web.pdf - | grep -ci "<name>"` should print `0`.
 4. Copy the PDF to `public/cv/Yu-Heng_Lai_CV.pdf` and push.
 
 ## Deployment
