@@ -1,5 +1,6 @@
 // Structural checks on the static export in out/. Run after `npm run build`.
-// FORBIDDEN_TERMS="a,b" also fails the check if any term appears in out/ (case-insensitive).
+// FORBIDDEN_TERMS="a,b" also fails the check if any term appears in a text file in out/
+// (TEXT_EXTENSIONS below; case-insensitive). Binary files such as the CV PDF are not read.
 // Pass forbidden terms only through the environment; never commit them.
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { extname, join } from "node:path";
@@ -74,4 +75,4 @@ if (failures.length > 0) {
   console.error(`✗ site check failed:\n${failures.map((failure) => `  - ${failure}`).join("\n")}`);
   process.exit(1);
 }
-console.log(`✓ site check passed${terms.length > 0 ? ` (scanned for ${terms.length} forbidden term(s))` : ""}`);
+console.log(`✓ site check passed${terms.length > 0 ? ` (scanned text files for ${terms.length} forbidden term(s))` : ""}`);
