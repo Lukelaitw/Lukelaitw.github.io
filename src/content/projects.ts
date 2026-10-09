@@ -23,6 +23,7 @@ export const projects: Project[] = [
       kind: "image",
       src: "/images/projects/careerhack.webp",
       alt: "Company dashboard of the Semiconductor Intelligence Platform with financial trend charts",
+      full: { src: "/images/projects/full/careerhack.webp", width: 1600, height: 911 },
     },
   },
   {
@@ -40,6 +41,7 @@ export const projects: Project[] = [
       kind: "image",
       src: "/images/projects/bci.webp",
       alt: "Title screen of the Tightrope Balance game",
+      full: { src: "/images/projects/full/bci.webp", width: 1600, height: 906 },
     },
   },
   {
@@ -63,6 +65,7 @@ export const projects: Project[] = [
       src: "/images/projects/eeg.webp",
       alt: "Per-class Grad-CAM EEG scalp maps for Alzheimer’s disease, controls, and frontotemporal dementia",
       fit: "contain",
+      full: { src: "/images/projects/full/eeg.webp", width: 1600, height: 541 },
     },
   },
   {
@@ -89,6 +92,7 @@ export const projects: Project[] = [
       kind: "image",
       src: "/images/projects/drawing.webp",
       alt: "Pen-plotter hardware of the smart drawing machine with a Raspberry Pi",
+      full: { src: "/images/projects/full/drawing.webp", width: 800, height: 600 },
     },
   },
 ];

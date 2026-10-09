@@ -22,8 +22,17 @@ export type ResearchItem = {
   description: ReactNode;
 };
 
+export type ImageFile = { src: string; width: number; height: number };
+
 export type Thumbnail =
-  | { kind: "image"; src: string; alt: string; fit?: "cover" | "contain" }
+  | {
+      kind: "image";
+      src: string;
+      alt: string;
+      fit?: "cover" | "contain";
+      // Larger, uncropped image shown when the thumbnail is clicked.
+      full?: ImageFile;
+    }
   | { kind: "ecg" };
 
 export type Project = {

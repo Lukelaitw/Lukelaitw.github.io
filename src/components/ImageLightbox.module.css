@@ -1,0 +1,145 @@
+.trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+
+/* The thumbnail frame clips overflow, so the focus ring is drawn inside it. */
+.trigger:focus-visible {
+  outline-offset: -2px;
+}
+
+.badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.trigger:hover .badge,
+.trigger:focus-visible .badge {
+  opacity: 1;
+}
+
+/* Touch screens cannot hover, so the badge always shows there. */
+@media (hover: none) {
+  .badge {
+    opacity: 1;
+  }
+}
+
+.dialog {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 64px 24px 24px;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.dialog[open] {
+  display: grid;
+  place-items: center;
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.85);
+  backdrop-filter: blur(6px);
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+  max-height: calc(100dvh - 150px);
+  border-radius: 6px;
+}
+
+.caption {
+  color: rgb(255 255 255 / 0.85);
+  font-size: 14px;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.14);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.close:hover {
+  background: rgb(255 255 255 / 0.26);
+}
+
+.close:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .trigger img {
+    transition: transform 0.2s ease;
+  }
+
+  .trigger:hover img {
+    transform: scale(1.04);
+  }
+
+  .dialog[open] .figure {
+    animation: appear 0.18s ease-out;
+  }
+
+  .dialog[open]::backdrop {
+    animation: fade-in 0.18s ease-out;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}

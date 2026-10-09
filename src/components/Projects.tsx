@@ -1,8 +1,30 @@
 import Image from "next/image";
 import type { Project } from "@/content/types";
 import { EcgIllustration } from "./EcgIllustration";
+import { ImageLightbox } from "./ImageLightbox";
 import { Section } from "./Section";
 import styles from "./Projects.module.css";
+
+function ProjectThumbnail({ project }: { project: Project }) {
+  const { thumbnail } = project;
+  if (thumbnail.kind === "ecg") return <EcgIllustration />;
+  const image = (
+    <Image
+      src={thumbnail.src}
+      alt={thumbnail.alt}
+      width={360}
+      height={224}
+      className={styles.image}
+      style={{ objectFit: thumbnail.fit ?? "cover" }}
+    />
+  );
+  if (!thumbnail.full) return image;
+  return (
+    <ImageLightbox image={thumbnail.full} alt={thumbnail.alt} caption={project.title}>
+      {image}
+    </ImageLightbox>
+  );
+}
 
 export function Projects({ items }: { items: Project[] }) {
   return (
@@ -10,18 +32,7 @@ export function Projects({ items }: { items: Project[] }) {
       {items.map((project) => (
         <article key={project.title} className={styles.item}>
           <div className={styles.thumb}>
-            {project.thumbnail.kind === "image" ? (
-              <Image
-                src={project.thumbnail.src}
-                alt={project.thumbnail.alt}
-                width={360}
-                height={224}
-                className={styles.image}
-                style={{ objectFit: project.thumbnail.fit ?? "cover" }}
-              />
-            ) : (
-              <EcgIllustration />
-            )}
+            <ProjectThumbnail project={project} />
           </div>
           <div>
             <h3 className={styles.title}>{project.title}</h3>

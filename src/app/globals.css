@@ -43,6 +43,11 @@ html {
   }
 }
 
+/* Keep the page still behind an open image dialog. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   background: var(--bg);

@@ -25,7 +25,7 @@ Page content lives in `src/content/`, and components in `src/components/` handle
 | `news.tsx` | News items, newest first |
 | `publications.ts` | Publications. The section and its nav link appear once this list is non-empty. |
 | `research.ts` | Research positions |
-| `projects.ts` | Projects. Image thumbnails are 720×448 WebP files in `public/images/projects/`; the BLE app uses an inline SVG illustration (`kind: "ecg"`). |
+| `projects.ts` | Projects. Image thumbnails are 720×448 WebP files in `public/images/projects/`; the BLE app uses an inline SVG illustration (`kind: "ecg"`). A thumbnail with `full` opens that larger, uncropped image (WebP, up to 1600 px wide, in `public/images/projects/full/`) when clicked. Strip metadata such as EXIF from photos before adding them. |
 | `education.ts` | Education, newest first. School logos are WebP files in `public/images/schools/`, about 160 px on the long side, with transparent backgrounds. |
 | `skills.ts` | Skills |
 
