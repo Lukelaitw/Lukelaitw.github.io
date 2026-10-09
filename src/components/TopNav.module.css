@@ -19,3 +19,11 @@
     gap: 4px 16px;
   }
 }
+
+.list a {
+  text-decoration: none;
+}
+
+.list a:hover {
+  text-decoration: underline;
+}
