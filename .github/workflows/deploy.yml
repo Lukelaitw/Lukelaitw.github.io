@@ -28,6 +28,8 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm run check
+        env:
+          FORBIDDEN_TERMS: ${{ secrets.FORBIDDEN_TERMS }}
       - uses: actions/upload-pages-artifact@v5
         with:
           path: out

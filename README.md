@@ -34,7 +34,7 @@ To add an entry, copy an existing object in the relevant file and edit it:
 - **Publication:** add an object to `publications.ts` following the commented example. Write your name exactly as `Yu-Heng Lai` in `authors` so it is shown in bold.
 - **Project:** add an object to `projects.ts`. Image thumbnails need a non-empty `alt`.
 
-Run `npm run build && npm run check` before pushing. To guard against an unpublished name, run `FORBIDDEN_TERMS="<name>" npm run check`; the check fails if the name (case-insensitive) appears in any text file in `out/` (.html, .txt, .js, .css, .json, .svg, .xml). It does not read the CV PDF, so check that as described under Updating the CV.
+Run `npm run build && npm run check` before pushing. To guard against an unpublished name, run `FORBIDDEN_TERMS="<name>" npm run check`; the check fails if the name (case-insensitive) appears in any text file in `out/` (.html, .txt, .js, .css, .json, .svg, .xml). The deploy workflow runs the same check with the `FORBIDDEN_TERMS` repository secret (comma-separated; change it with `gh secret set FORBIDDEN_TERMS`), so a push that would publish the name fails before deploying. Neither check reads the CV PDF, so check that as described under Updating the CV.
 
 ## Updating the CV
 
