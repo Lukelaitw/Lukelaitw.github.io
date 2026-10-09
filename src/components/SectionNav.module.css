@@ -1,0 +1,65 @@
+.nav {
+  margin-top: 24px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.list a:hover,
+.list a[aria-current] {
+  color: var(--text);
+}
+
+@media (min-width: 1080px) {
+  .nav {
+    margin-top: 28px;
+  }
+
+  .list {
+    flex-direction: column;
+  }
+
+  .list a {
+    padding: 7px 0;
+  }
+
+  .list a::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.15s;
+  }
+
+  .list a:hover::before,
+  .list a[aria-current]::before {
+    width: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list a,
+  .list a::before {
+    transition: none;
+  }
+}

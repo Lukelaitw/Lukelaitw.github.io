@@ -2,11 +2,13 @@ import type { ReactNode } from "react";
 
 export type Link = { label: string; href: string };
 
+export type IconName = "email" | "cv" | "github" | "linkedin";
+
 export type Profile = {
   name: string;
   cvPath: string;
   bio: ReactNode;
-  links: Link[];
+  links: (Link & { icon: IconName })[];
 };
 
 export type NewsItem = { date: string; text: ReactNode };
@@ -48,8 +50,8 @@ export type EducationItem = {
   period: string;
   degree: string;
   details?: string[];
-};
-
   // School emblem or logo in public/images/schools/, shown beside the entry.
   logo?: string;
+};
+
 export type SkillGroup = { label: string; items: string[] };

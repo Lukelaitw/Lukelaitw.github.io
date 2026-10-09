@@ -1,23 +1,22 @@
 import type { Profile } from "@/content/types";
+import { Icon } from "./Icon";
 import styles from "./Intro.module.css";
 
 export function Intro({ profile }: { profile: Profile }) {
   return (
-    <header className={styles.intro}>
+    <div>
       <h1 className={styles.name}>{profile.name}</h1>
       <div className={styles.bio}>{profile.bio}</div>
-      <p className={styles.links}>
-        {profile.links.map((link, index) => (
-          <span key={link.href}>
-            {index > 0 && (
-              <span className={styles.separator} aria-hidden="true">
-                {" / "}
-              </span>
-            )}
-            <a href={link.href}>{link.label}</a>
-          </span>
+      <ul className={styles.links}>
+        {profile.links.map((link) => (
+          <li key={link.href}>
+            <a href={link.href}>
+              <Icon name={link.icon} />
+              <span>{link.label}</span>
+            </a>
+          </li>
         ))}
-      </p>
-    </header>
+      </ul>
+    </div>
   );
 }

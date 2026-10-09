@@ -5,8 +5,9 @@ import { News } from "@/components/News";
 import { Projects } from "@/components/Projects";
 import { Publications } from "@/components/Publications";
 import { Research } from "@/components/Research";
+import { SectionNav } from "@/components/SectionNav";
+import { Sidebar } from "@/components/Sidebar";
 import { Skills } from "@/components/Skills";
-import { TopNav } from "@/components/TopNav";
 import { education } from "@/content/education";
 import { news } from "@/content/news";
 import { profile } from "@/content/profile";
@@ -15,6 +16,7 @@ import { publications } from "@/content/publications";
 import { research } from "@/content/research";
 import { skills } from "@/content/skills";
 import type { Link } from "@/content/types";
+import styles from "./page.module.css";
 
 const navLinks: Link[] = [
   { label: "News", href: "#news" },
@@ -22,23 +24,26 @@ const navLinks: Link[] = [
   { label: "Research", href: "#research" },
   { label: "Projects", href: "#projects" },
   { label: "Education", href: "#education" },
-  { label: "CV", href: profile.cvPath },
 ];
 
 export default function Home() {
   return (
-    <div className="container">
-      <TopNav links={navLinks} />
-      <main>
+    <div className={styles.page}>
+      <Sidebar>
         <Intro profile={profile} />
-        <News items={news} />
-        <Publications items={publications} selfName={profile.name} />
-        <Research items={research} />
-        <Projects items={projects} />
-        <Education items={education} />
-        <Skills groups={skills} />
-      </main>
-      <Footer name={profile.name} />
+        <SectionNav links={navLinks} />
+      </Sidebar>
+      <div className={styles.content}>
+        <main>
+          <News items={news} />
+          <Publications items={publications} selfName={profile.name} />
+          <Research items={research} />
+          <Projects items={projects} />
+          <Education items={education} />
+          <Skills groups={skills} />
+        </main>
+        <Footer name={profile.name} />
+      </div>
     </div>
   );
 }

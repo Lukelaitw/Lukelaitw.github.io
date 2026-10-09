@@ -21,7 +21,7 @@ Page content lives in `src/content/`, and components in `src/components/` handle
 
 | File | Content |
 | --- | --- |
-| `profile.tsx` | Name, intro paragraphs, and the Email / CV / GitHub / LinkedIn links |
+| `profile.tsx` | Name, intro paragraphs, and the Email / CV / GitHub / LinkedIn links. Each link names an icon from `src/components/Icon.tsx`. |
 | `news.tsx` | News items, newest first |
 | `publications.ts` | Publications. The section and its nav link appear once this list is non-empty. |
 | `research.ts` | Research positions |

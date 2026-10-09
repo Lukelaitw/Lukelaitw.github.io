@@ -28,9 +28,9 @@ export const profile: Profile = {
     </>
   ),
   links: [
-    { label: "Email", href: "mailto:b12901075@ntu.edu.tw" },
-    { label: "CV", href: cvPath },
-    { label: "GitHub", href: "https://github.com/Lukelaitw" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/lukelaitw/" },
+    { label: "Email", href: "mailto:b12901075@ntu.edu.tw", icon: "email" },
+    { label: "CV", href: cvPath, icon: "cv" },
+    { label: "GitHub", href: "https://github.com/Lukelaitw", icon: "github" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/lukelaitw/", icon: "linkedin" },
   ],
 };

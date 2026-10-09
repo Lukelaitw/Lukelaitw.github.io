@@ -1,0 +1,12 @@
+.sidebar {
+  padding-top: 40px;
+}
+
+@media (min-width: 1080px) {
+  .sidebar {
+    position: sticky;
+    top: var(--sidebar-top, 0px);
+    align-self: start;
+    padding: 80px 0 48px;
+  }
+}
