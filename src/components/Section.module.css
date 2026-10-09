@@ -1,0 +1,14 @@
+.section {
+  margin-top: 44px;
+  scroll-margin-top: 16px;
+}
+
+.heading {
+  margin: 0 0 16px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.3;
+}

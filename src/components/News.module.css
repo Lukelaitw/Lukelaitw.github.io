@@ -1,0 +1,26 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.date {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .item {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 12px;
+  }
+}
