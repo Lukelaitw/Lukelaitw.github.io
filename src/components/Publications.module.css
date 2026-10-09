@@ -1,0 +1,28 @@
+.item {
+  margin-bottom: 18px;
+}
+
+.title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.authors,
+.venue {
+  margin: 0;
+  font-size: 14px;
+}
+
+.venue {
+  color: var(--muted);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 2px 0 0;
+  font-size: 14px;
+}
